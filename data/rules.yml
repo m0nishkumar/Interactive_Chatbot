@@ -1,0 +1,50 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+  - action: utter_nxt
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Order
+  steps:
+  - intent: orderr
+  - action: utter_order
+
+- rule: Orderr
+  steps:
+  - intent: order
+  - action: utter_order
+
+- rule: Orderrr
+  steps:
+  - intent: veg
+  - action: utter_nonveg
+  
+
+  
+- rule: Activate form
+  steps:
+  - intent: food
+  - action: utter_great
+  - action: name_form
+  - active_loop: name_form
+
+- rule: Submit form
+  condition:
+  - active_loop: name_form
+  steps:
+  - action: name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+  - action: utter_slots_values
+  - action: utter_cheer_up
